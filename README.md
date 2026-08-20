@@ -1,135 +1,134 @@
-# 🔒 Auditoria de Segurança e Hardening (v23)
+# 🔒 Security Audit and Hardening (v23)
 
-Um script Bash profissional e resiliente para auditar e fortalecer a segurança de servidores Linux (Debian/Ubuntu). Executa verificações críticas de segurança e aplica correções de hardening de forma interativa ou automática.
+A professional and robust Bash script for auditing and hardening the security of Linux servers (Debian/Ubuntu). It performs critical security checks and applies hardening fixes interactively or automatically.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-O script realiza 11 etapas de verificação e endurecimento do sistema:
+The script performs 11 steps to check and harden the system:
 
-1.  **🔍 Atualizações Pendentes**: Verifica e aplica atualizações de segurança do sistema operacional.
-2.  **🔌 Portas e Serviços**: Lista portas abertas e serviços em escuta (usando `ss` ou `netstat`).
-3.  **🛡️ Firewall (UFW)**: Verifica se o UFW está ativo, configura políticas restritivas, e permite revisão interativa de regras.
-4.  **🔒 AppArmor**: Garante que o sistema de isolamento de processos Mandatory Access Control (MAC) esteja ativo.
-5.  **🔑 Hardening do SSH**: Bloqueia login como root, testa a configuração antes de reiniciar o serviço e cria backup automático.
-6.  **⛔ Proteção contra Força Bruta (Fail2Ban)**: Instala e configura o Fail2Ban para proteger o SSH (bloqueia IP após 3 tentativas).
-7.  **📜 Tentativas de Login Falhas**: Exibe as últimas tentativas de senha inválidas no SSH.
-8.  **✅ Integridade do Sistema**: Usa o `debsums` para verificar a integridade de binários e bibliotecas, com barra de progresso.
-9.  **🦠 Antivírus (ClamAV)**: Verifica a instalação, atualização de vacinas e agendamento de varreduras do ClamAV.
-10. **🎯 Rootkit Hunter**: Detecta a presença de ferramentas como `rkhunter` e `chkrootkit` e seus agendamentos.
-11. **🌐 Conexões de Saída**: Mapeia todas as conexões externas estabelecidas, identificando processos e portas de destino.
+1.  **🔍 Pending Updates**: Checks for and applies operating system security updates.
+2.  **🔌 Ports and Services**: Lists open ports and listening services (using `ss` or `netstat`).
+3.  **🛡️ Firewall (UFW)**: Checks if UFW is active, configures restrictive policies, and allows interactive review of rules.
+4.  **🔒 AppArmor**: Ensures that the Mandatory Access Control (MAC) process isolation system is active.
+5.  **🔑 SSH Hardening**: Blocks root logins, tests the configuration before restarting the service, and creates an automatic backup.
+6.  **⛔ Brute-Force Protection (Fail2Ban)**: Installs and configures Fail2Ban to protect SSH (blocks IP addresses after 3 attempts).
+7.  **📜 Failed Login Attempts**: Displays the most recent invalid password attempts on SSH.
+8.  **✅ System Integrity**: Uses `debsums` to verify the integrity of binaries and libraries, with a progress bar.
+9.  **🦠 Antivirus (ClamAV)**: Checks the ClamAV installation, updates the definition files, and schedules scans.
+10. **🎯 Rootkit Hunter**: Detects the presence of tools such as `rkhunter` and `chkrootkit` and their scheduled tasks.
+11. **🌐 Outbound Connections**: Maps all established external connections, identifying processes and destination ports.
 
-Ao final, um relatório consolidado é exibido com o status de cada camada de defesa e uma conclusão final sobre a postura de segurança do sistema.
+At the end, a consolidated report is displayed showing the status of each defense layer and a final conclusion regarding the system’s security posture.
 
-## ⚙️ Modos de Execução
+## ⚙️ Execution Modes
 
-O script oferece dois modos principais:
+The script offers two main modes:
 
-- **Modo Interativo (Padrão)**: Faz perguntas ao usuário (`y/n`) para cada ação corretiva. Permite controle total sobre o que será alterado no sistema.
-- **Modo Automático (`--auto` ou `-y`)**: Não requer nenhuma interação. Aplica automaticamente as melhores práticas de segurança padrão (ativa firewall, instala e configura Fail2Ban, bloqueia root SSH, ativa AppArmor, etc.). Ideal para setups iniciais ou automação via scripts de provisionamento (cloud-init, Ansible, etc.).
+- **Interactive Mode (Default)**: Prompts the user (`y/n`) for each corrective action. Allows full control over what will be changed on the system.
+- **Automatic Mode (`--auto` or `-y`)**: Requires no user interaction. Automatically applies standard security best practices (enables the firewall, installs and configures Fail2Ban, blocks SSH root access, enables AppArmor, etc.). Ideal for initial setups or automation via provisioning scripts (cloud-init, Ansible, etc.).
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- Sistema operacional **Debian** ou **Ubuntu** (ou derivados que usem `apt`).
-- **Bash** (padrão em todos os sistemas Linux).
-- Privilégios de **root** (sudo).
+- **Debian** or **Ubuntu** operating system (or derivatives that use `apt`).
+- **Bash** (standard on all Linux systems).
+- **Root** privileges (sudo).
 
-## 🚀 Como Usar
+## 🚀 How to Use
 
-### 1. Download e Permissão
+### 1. Download and Permissions
 
-Clone o repositório ou faça o download do script, e conceda permissão de execução:
+Clone the repository or download the script, and grant it execute permissions:
 
 ```bash
 wget https://raw.githubusercontent.com/seu-usuario/seu-repo/main/auditoria_hardening.sh
-# ou
+# or
 curl -O https://raw.githubusercontent.com/seu-usuario/seu-repo/main/auditoria_hardening.sh
 
 chmod +x auditoria_hardening.sh
 ```
+### 2. Execution
 
-### 2. Execução
+> **⚠️ Important:** Always run the script as superuser.
 
-> **⚠️ Importante:** Sempre execute o script como superusuário.
-
-**A. Modo Interativo (padrão):**
-
-```bash
-sudo bash auditoria_hardening.sh
-```
-
-Você será guiado passo a passo, podendo decidir cada ação corretiva.
-
-**B. Modo Automático (não interativo):**
+**A. Interactive Mode (default):**
 
 ```bash
-sudo bash auditoria_hardening.sh --auto
-# ou
-sudo bash auditoria_hardening.sh -y
+sudo bash hardening_audit.sh
 ```
 
-O script aplicará todas as configurações de segurança automaticamente. Veja a seção "Comportamento no Modo Automático" abaixo.
+You will be guided step by step and can decide on each corrective action.
 
-## 🤖 Comportamento no Modo Automático (`--auto`)
+**B. Automatic Mode (non-interactive):**
 
-Quando executado com `--auto`, o script assume as seguintes decisões:
+```bash
+sudo bash hardening_audit.sh --auto
+# or
+sudo bash hardening_audit.sh -y
+```
 
-| Ação/Configuração                       | Decisão Automática           |
+The script will apply all security configurations automatically. See the “Behavior in Automatic Mode” section below.
+
+## 🤖 Behavior in Automatic Mode (`--auto`)
+
+When run with `--auto`, the script makes the following decisions:
+
+| Action/Configuration                       | Automatic Decision           |
 |-----------------------------------------|------------------------------|
-| Atualizar pacotes do sistema            | **Não** (apenas verifica)    |
-| Ativar Firewall (UFW)                   | **Sim** (portas 80, 443, 22) |
-| Ativar AppArmor                         | **Sim**                      |
-| Bloquear login root no SSH              | **Sim**                      |
-| Instalar e configurar Fail2Ban          | **Sim**                      |
-| Verificar integridade com `debsums`     | **Sim** (completa)           |
-| Ativar atualização automática ClamAV    | **Sim**                      |
-| Agendar chkrootkit                      | **Sim** (diário às 03:00)    |
+| Update system packages            | **No** (checks only)    |
+| Enable Firewall (UFW)                   | **Yes** (ports 80, 443, 22) |
+| Enable AppArmor                         | **Yes**                      |
+| Block root login via SSH              | **Yes**                      |
+| Install and configure Fail2Ban          | **Yes**                      |
+| Check integrity with `debsums`     | **Yes** (full)           |
+| Enable automatic ClamAV updates     | **Yes**                      |
+| Schedule chkrootkit                      | **Yes** (daily at 3:00 AM)    |
 
-**É seguro para uma configuração inicial, mas em ambientes com regras de firewall complexas, recomenda-se o modo interativo para revisão cuidadosa.**
+**This is safe for an initial setup, but in environments with complex firewall rules, interactive mode is recommended for careful review.**
 
-## 🧠 Estrutura do Código
+## 🧠 Code Structure
 
-- **Validação Inicial**: Garante execução como Bash e com privilégios de root.
-- **Funções Auxiliares**: `ask_yes_no` e `ask_input` padronizam a interação e suportam o modo automático.
-- **Checagens Modulares**: Cada etapa (atualizações, firewall, SSH, etc.) é um bloco independente.
-- **Relatório Consolidado**: Variáveis armazenam o status de cada etapa para o sumário final.
-- **Limpeza**: Arquivos temporários são criados com `mktemp` e removidos ao final.
+- **Initial Validation**: Ensures execution as Bash with root privileges.
+- **Helper Functions**: `ask_yes_no` and `ask_input` standardize interaction and support automatic mode.
+- **Modular Checks**: Each step (updates, firewall, SSH, etc.) is an independent block.
+- **Consolidated Report**: Variables store the status of each step for the final summary.
+- **Cleanup**: Temporary files are created with `mktemp` and removed at the end.
 
-## 📝 Exemplo de Saída (Relatório Final)
+## 📝 Sample Output (Final Report)
 
 ```text
 ==============================================
-          RELATÓRIO FINAL DE AUDITORIA
+          FINAL AUDIT REPORT
 ==============================================
-• Atualizações do SO  : OK (Atualizado)
-• Portas e Serviços   : Analisado (ss)
-• Firewall            : OK (Ativo e Revisado)
-• AppArmor (MAC)      : OK (Ativo)
-• Hardening SSH       : OK (Root bloqueado)
-• Fail2Ban (Bloqueio) : OK (Ativo)
-• Integridade Sistema : OK (Íntegro)
-• Antivírus           : Instal. e Atualizando | Scan Ativo (Via regra global)
-• Rootkit Hunter      : rkhunter: Ativo (Diário) | chkrootkit: Ativo (Diário)
+• OS Updates  : OK (Updated)
+• Ports and Services   : Analyzed (ss)
+• Firewall            : OK (Active and Reviewed)
+• AppArmor (MAC)      : OK (Active)
+• SSH Hardening       : OK (Root blocked)
+• Fail2Ban (Blocking) : OK (Active)
+• System Integrity    : OK (Integrity intact)
+• Antivirus           : Installed and Updating | Active Scan (Via global rule)
+• Rootkit Hunter      : rkhunter: Active (Logged) | chkrootkit: Active (Logged)
 ----------------------------------------------
-       CONEXÕES DE SAÍDA ESTABELECIDAS
+       OUTBOUND CONNECTIONS ESTABLISHED
 ----------------------------------------------
-Porta Destino: 443 | Prog: curl | Local: /usr/bin/curl
-Porta Destino: 53  | Prog: systemd-resolve | Local: /usr/lib/systemd/systemd-resolved
+Destination Port: 443 | Program: curl | Location: /usr/bin/curl
+Destination Port: 53  | Program: systemd-resolve | Location: /usr/lib/systemd/systemd-resolved
 ----------------------------------------------
-CONCLUSÃO FINAL: Excelente! Seu sistema está com as principais camadas de defesa ativas.
+FINAL CONCLUSION: Excellent! Your system has its key defense layers active.
 ==============================================
 ```
 
-## 💡 Recomendações Pós-Execução
+## 💡 Post-Execution Recommendations
 
-- **Revise as regras do Firewall**: Execute `sudo ufw status` para conferir as portas liberadas.
-- **Teste o acesso SSH**: Se bloqueou o root, certifique-se de ter um usuário comum com `sudo` configurado antes de fechar a sessão atual.
-- **Monitore os Logs**: Acompanhe `/var/log/auth.log` e `fail2ban-client status` para verificar bloqueios em ação.
-- **Execute periodicamente**: Inclua o script no cron (apenas o modo `--auto` para verificações) ou execute-o manualmente após mudanças no sistema.
+- **Review the firewall rules**: Run `sudo ufw status` to check which ports are open.
+- **Test SSH access**: If you’ve blocked root access, make sure you have a regular user with `sudo` privileges configured before logging out.
+- **Monitor the logs**: Check `/var/log/auth.log` and `fail2ban-client status` to verify active blocks.
+- **Run periodically**: Add the script to cron (use `--auto` mode for checks only) or run it manually after system changes.
 
 ---
 
-## 🔗 Contribuição
+## 🔗 Contribute
 
-Sinta-se à vontade para abrir **Issues** para bugs/sugestões ou enviar **Pull Requests**. Toda ajuda é bem-vinda para tornar este script ainda mais robusto!
+Feel free to open **Issues** for bugs or suggestions, or submit **Pull Requests**. Any help is welcome to make this script even more robust!
 
-**Licença**: MIT
+**License**: MIT
