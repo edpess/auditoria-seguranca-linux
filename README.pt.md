@@ -1,4 +1,4 @@
-**English** | [Portuguese](README.pt.md)
+**Portuguese** | [English](README.md)
 
 # 🔒 Auditoria de Segurança e Hardening (v23)
 
