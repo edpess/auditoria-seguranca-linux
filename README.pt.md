@@ -1,4 +1,5 @@
-
+[![Portuguese](https://img.shields.io/badge/PT-red)](README.pt.md)
+[![English](https://img.shields.io/badge/English-blue)](README.md)
 
 # 🔒 Auditoria de Segurança e Hardening (v23)
 
