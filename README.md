@@ -1,4 +1,7 @@
-# 🔒 Security Audit and Hardening (v23)
+[![English](https://img.shields.io/badge/English-blue)](README.md)
+[![PT](https://img.shields.io/badge/PT-red)](README.pt.md)
+
+# 🔒 Security Audit and Hardening
 
 A professional and robust Bash script for auditing and hardening the security of Linux servers (Debian/Ubuntu). It performs critical security checks and applies hardening fixes interactively or automatically.
 

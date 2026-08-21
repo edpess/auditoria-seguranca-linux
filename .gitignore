@@ -1,3 +1,24 @@
-README_p.md
+# Ambientes virtuais 
+.venv/
+venv/
+env/
+.virtualenvs/
+
+# Código compilado e cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+
+# Arquivos de ambiente e IDE
+.env
+.vscode/
+.idea/
+*.log
+
+# Arquivos comuns
 V22-auditoria.sh
 audit_hardening_p.sh
+
