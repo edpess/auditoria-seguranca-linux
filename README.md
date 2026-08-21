@@ -1,5 +1,5 @@
 [![English](https://img.shields.io/badge/English-blue)](README.md)
-[![PT](https://img.shields.io/badge/PT-red)](README.pt.md)
+[![Portuguese](https://img.shields.io/badge/PT-red)](README.pt.md)
 
 # 🔒 Security Audit and Hardening
 
