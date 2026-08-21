@@ -1,3 +1,5 @@
+
+
 # 🔒 Auditoria de Segurança e Hardening (v23)
 
 Um script Bash profissional e resiliente para auditar e fortalecer a segurança de servidores Linux (Debian/Ubuntu). Executa verificações críticas de segurança e aplica correções de hardening de forma interativa ou automática.
@@ -28,6 +30,8 @@ O script oferece dois modos principais:
 - **Modo Automático (`--auto` ou `-y`)**: Não requer nenhuma interação. Aplica automaticamente as melhores práticas de segurança padrão (ativa firewall, instala e configura Fail2Ban, bloqueia root SSH, ativa AppArmor, etc.). Ideal para setups iniciais ou automação via scripts de provisionamento (cloud-init, Ansible, etc.).
 
 ## 📋 Pré-requisitos
+[![Portuguese](https://img.shields.io/badge/PT-red)](README.pt.md)
+[![English](https://img.shields.io/badge/English-blue)](README.md)
 
 - Sistema operacional **Debian** ou **Ubuntu** (ou derivados que usem `apt`).
 - **Bash** (padrão em todos os sistemas Linux).
